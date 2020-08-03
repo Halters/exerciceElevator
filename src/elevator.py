@@ -13,12 +13,22 @@ class Elevator():
     __maximumFloor = 0
     __minimumFloor = 0
 
+    # Prototype = __init__(self, dataArray)
+    # Argument = self (mandatory argument) & dataArray(JSON packet)
+    # Return Value =
+    # Description = Elevator's constructor
     def __init__(self, dataArray):
         try:
             self.checkJSONValue(dataArray)
+
         except Exception as e:
             raise(e)
-
+    
+    
+    # Prototype = checkJSONValue(self, dataArray)
+    # Argument = self (mandatory argument) & dataArray(JSON packet)
+    # Return Value = raising Exceptions
+    # Description = Check the JSON packet value and their coherences.
     def checkJSONValue(self, dataArray):
         keyWords = ["maxFloor", "minFloor", "startFloor"]
     
@@ -34,6 +44,10 @@ class Elevator():
         if dataArray['startFloor'] > dataArray['maxFloor'] or dataArray['startFloor'] < dataArray['minFloor']:
             raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
 
+    # Prototype = start(self, )
+    # Argument = self (mandatory argument)
+    # Return Value = raising Exception
+    # Description = Check the JSON packet value and their coherences.
     def start(self):
         for line in sys.stdin:
             line = line.rstrip()
