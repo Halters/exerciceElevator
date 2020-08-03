@@ -6,6 +6,7 @@
 import sys
 import json
 import argparse
+import signal
 from elevator import Elevator
  
 #Define global variables for a better understanding
@@ -24,6 +25,8 @@ def errorHandling(av):
             file.close()
     except IOError:
         raise IOError("File doesn't exist.")
+        
+
 
 # Prototype : main(av)
 # Argument : av (array of string)
@@ -43,7 +46,7 @@ def main(av):
         with open(av[1], "r") as f:
             data = json.load(f)
         actualElevator = Elevator(data)
-        #actualElevator.start()
+        actualElevator.start()
     except Exception as e:
         print(type(e).__name__,":", e)
         return(84)
