@@ -1,4 +1,10 @@
 #coding = utf-8
+# Process Digital Tools
+# Author : Hicham TNACHERI OUAZZANI (hicham.tnacheri@epitech.eu)
+# Date : 08/02/2020 at 00:45AM
+# Filename : elevator.py
+
+import sys
 import json
 
 
@@ -8,21 +14,22 @@ class Elevator():
     __minimumFloor = 0
 
     def __init__(self, dataArray):
-        self.checkJSONValue(fileConfiguration)
+        try:
+            self.checkJSONValue(dataArray)
+        except Exception as e:
+            raise(e)
 
-    def checkJSONValue(dataArray):
+    def checkJSONValue(self, dataArray):
         keyWords = ["maxFloor", "minFloor", "startFloor"]
     
-        for i in range (len(keyWords)):
+        for iterator in range (len(keyWords)):
             try :
-                retValue = data[keyWords[i]]
+                retValue = dataArray[keyWords[iterator]]
             except KeyError:
-                print ("One Value wasn't found.\nJSON value : maxFloor, minFloor, startFloor")
-        if data['maxFloor'] <= data['minFloor']:
-            print ("Maximum floor can't be smaller or egal to minimum floor")
-            return ERRORCODE
-        if data['minFloor'] >= data['maxFloor']:
-            print("Minimum floor can't be higher or egal to maximum floor")
-            return ERRORCODE
-        if data['startFloor'] > data['maxFloor'] or data['startFloor'] < data['minFloor']:
-            print("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
+                raise KeyError("One Value wasn't found.\nJSON value : maxFloor, minFloor, startFloor")
+        if dataArray['maxFloor'] <= dataArray['minFloor']:
+            raise ValueError("Maximum floor can't be smaller or egal to minimum floor")
+        if dataArray['minFloor'] >= dataArray['maxFloor']:
+            raise ValueError("Minimum floor can't be higher or egal to maximum floor")
+        if dataArray['startFloor'] > dataArray['maxFloor'] or dataArray['startFloor'] < dataArray['minFloor']:
+            raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
