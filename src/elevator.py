@@ -5,6 +5,7 @@
 # Filename : elevator.py
 
 import sys
+import time
 import json
 
 
@@ -89,15 +90,29 @@ class Elevator():
             raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
 
 
-    def move_up(self):
+    def move_up(self, order_to_exec):
         actual_floor = self.get_floor_position()
+        to_move = 1
 
-        if ((actual_floor + 1) > self.get_max_floor()):
-            print("You can't go higher. Maximum floor already reach.")
+        if (len(order_to_exec) > 1):
+            if (order_to_exec[1] != None):
+                try :
+                    to_move = int(order_to_exec[1])
+                except ValueError:
+                    raise ValueError("Floor can only be an integer.")
+        print (to_move)
+        if ((actual_floor + to_move) > self.get_max_floor()):
+            print("You can't go higher. Maximum floor already reach or you will be out of band.")
             return 0
         else:
-            print ("Stage", actual_floor , "to Stage", actual_floor + 1)
-            self.set_floor_postion(actual_floor + 1)
+            for temp in range (actual_floor, actual_floor + to_move):
+                print ("Stage", actual_floor , "to Stage", actual_floor + 1)
+                self.set_floor_postion(actual_floor + 1)
+                actual_floor += 1
+                time.sleep(2)
+
+    def print_status(self) :
+        print("Elevator is at floor", self.__floor_position)
 
 
     # Prototype = start(self)
@@ -108,9 +123,15 @@ class Elevator():
         print ("Enter a command :")
         print ("Starting floor : ", self.get_floor_position())
         for line in sys.stdin:
-            line = line.rstrip()
+            line = line.rstrip().split()
+            print (line)
             print ("You are actually stage", self.get_floor_position())
-            if (line.lower() == "end"):
+            if (line[0].lower() == "end"):
                 return(0)
-            if (line.lower() == "up"):
-                self.move_up()
+            if (line[0].lower() == "up"):
+                try:
+                    self.move_up(line)
+                    self.print_status()
+                except Exception as e:
+                    print(type(e).__name__,":", e)
+                    pass
