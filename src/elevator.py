@@ -25,8 +25,10 @@ class Elevator():
             self.set_floor_postion(data_array['startFloor'])
             self.set_max_floor(data_array['maxFloor'])
             self.set_min_floor(data_array['minFloor'])
+            return(0)
         except Exception as e:
             raise(e)
+            return(84)
     
     # Prototype = set_floor_postion(self, initial_pos)
     # Argument = self(mandatory argument) & initial_pos (interger)
@@ -100,7 +102,6 @@ class Elevator():
                     to_move = int(order_to_exec[1])
                 except ValueError:
                     raise ValueError("Floor can only be an integer.")
-        print (to_move)
         if ((actual_floor + to_move) > self.get_max_floor()):
             print("You can't go higher. Maximum floor already reach or you will be out of band.")
             return 0
@@ -122,7 +123,6 @@ class Elevator():
                     to_move = int(order_to_exec[1])
                 except ValueError:
                     raise ValueError("Floor can only be an integer.")
-        print (to_move)
         if ((actual_floor - to_move) < self.get_min_floor()):
             print("You can't go higher. Minimum floor already reach or you will be out of band.")
             return 0
@@ -147,7 +147,6 @@ class Elevator():
         print ("Starting floor : ", self.get_floor_position())
         for line in sys.stdin:
             line = line.rstrip().split()
-            print (line)
             print ("You are actually stage", self.get_floor_position())
             if (line[0].lower() == "end"):
                 return(0)
