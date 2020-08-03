@@ -35,4 +35,5 @@ def main(av):
         return(84)
 
 
-main(sys.argv)
+if __name__ == "__main__":
+    main(sys.argv)
