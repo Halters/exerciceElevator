@@ -111,6 +111,29 @@ class Elevator():
                 actual_floor += 1
                 time.sleep(2)
 
+
+    def move_down(self, order_to_exec):
+        actual_floor = self.get_floor_position()
+        to_move = 1
+
+        if (len(order_to_exec) > 1):
+            if (order_to_exec[1] != None):
+                try :
+                    to_move = int(order_to_exec[1])
+                except ValueError:
+                    raise ValueError("Floor can only be an integer.")
+        print (to_move)
+        if ((actual_floor - to_move) < self.get_min_floor()):
+            print("You can't go higher. Minimum floor already reach or you will be out of band.")
+            return 0
+        else:
+            for temp in range (actual_floor, actual_floor + to_move):
+                print ("Stage", actual_floor , "to Stage", actual_floor - 1)
+                self.set_floor_postion(actual_floor - 1)
+                actual_floor -= 1
+                time.sleep(2)
+
+
     def print_status(self) :
         print("Elevator is at floor", self.__floor_position)
 
@@ -131,6 +154,13 @@ class Elevator():
             if (line[0].lower() == "up"):
                 try:
                     self.move_up(line)
+                    self.print_status()
+                except Exception as e:
+                    print(type(e).__name__,":", e)
+                    pass
+            if (line[0].lower() == "down"):
+                try:
+                    self.move_down(line)
                     self.print_status()
                 except Exception as e:
                     print(type(e).__name__,":", e)
