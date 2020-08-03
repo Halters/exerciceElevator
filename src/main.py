@@ -8,24 +8,7 @@ import json
 import argparse
 import signal
 from elevator import Elevator
- 
-#Define global variables for a better understanding
-
-
-# Prototype : errorHandling(av)
-# Argument : av (array of data)
-# Return value : integer (ERRORCODE or SUCCESSCODE)
-# Description : Manage the potential error with user input
-def errorHandling(av):
-    try:
-        if (av[1] != None):
-            file = open(av[1], "r")
-            with open(av[1], "r") as f:
-                data = json.load(f)
-            file.close()
-    except IOError:
-        raise IOError("File doesn't exist.")
-        
+from errorHandling import errorHandling
 
 
 # Prototype : main(av)
@@ -42,6 +25,7 @@ def main(av):
     parser.add_argument("filename", type=str, default="config.json", help="Configuration file")
     arv = parser.parse_args()
     try:
+        print (av)
         errorHandling(av)
         with open(av[1], "r") as f:
             data = json.load(f)
