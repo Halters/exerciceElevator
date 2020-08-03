@@ -25,7 +25,6 @@ def main(av):
     parser.add_argument("filename", type=str, default="config.json", help="Configuration file")
     arv = parser.parse_args()
     try:
-        print (av)
         errorHandling(av)
         with open(av[1], "r") as f:
             data = json.load(f)
