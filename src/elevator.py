@@ -2,7 +2,7 @@
 import json
 
 
-class elevator():
+class Elevator():
     __floorPosition = 0
     __maximumFloor = 0
     __minimumFloor = 0
