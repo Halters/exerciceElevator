@@ -18,6 +18,7 @@ class Elevator():
     # Return Value =
     # Description = Elevator's constructor
     def __init__(self, data_array):
+        print ('Initialization of Elevator software ..')
         try:
             self.check_json_value(data_array)
             self.set_floor_postion(data_array['startFloor'])
@@ -54,17 +55,17 @@ class Elevator():
     def get_floor_position(self):
         return self.__floor_position
     
-    # Prototype = setFloorPosition(self, initialPos)
-    # Argument = self(mandatory argument) & initialPos (interger)
+    # Prototype = get_max_floor(self)
+    # Argument = self(mandatory argument)
     # Return Value = None
-    # Description = setter of __floorPosition
+    # Description = getter for __maximum_floor
     def get_max_floor(self):
         return self.__maximum_floor
 
-    # Prototype = setFloorPosition(self, initialPos)
-    # Argument = self(mandatory argument) & initialPos (interger)
+    # Prototype = get_min_floor(self)
+    # Argument = self(mandatory argument)
     # Return Value = None
-    # Description = setter of __floorPosition
+    # Description = getter for __minimum_floor
     def get_min_floor(self):
         return self.__minimum_floor
     
@@ -77,7 +78,7 @@ class Elevator():
     
         for iterator in range (len(keyWords)):
             try :
-                retValue = dataArray[keyWords[iterator]]
+                retValue = data_array[keyWords[iterator]]
             except KeyError:
                 raise KeyError("One Value wasn't found.\nJSON value : maxFloor, minFloor, startFloor")
         if data_array['maxFloor'] <= data_array['minFloor']:
@@ -87,13 +88,29 @@ class Elevator():
         if data_array['startFloor'] > data_array['maxFloor'] or data_array['startFloor'] < data_array['minFloor']:
             raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
 
+
+    def move_up(self):
+        actual_floor = self.get_floor_position()
+
+        if ((actual_floor + 1) > self.get_max_floor()):
+            print("You can't go higher. Maximum floor already reach.")
+            return 0
+        else:
+            print ("Stage", actual_floor , "to Stage", actual_floor + 1)
+            self.set_floor_postion(actual_floor + 1)
+
+
     # Prototype = start(self)
     # Argument = self (mandatory argument)
     # Return Value = raising Exception
     # Description = Check the JSON packet value and their coherences.
     def start(self):
+        print ("Enter a command :")
+        print ("Starting floor : ", self.get_floor_position())
         for line in sys.stdin:
             line = line.rstrip()
+            print ("You are actually stage", self.get_floor_position())
             if (line.lower() == "end"):
-                print (line)
                 return(0)
+            if (line.lower() == "up"):
+                self.move_up()
