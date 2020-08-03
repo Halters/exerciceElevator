@@ -6,7 +6,7 @@
 import sys
 import json
 from math import *
-from elevator import elevator
+from elevator import Elevator
  
 #Define global variables for a better understanding
 ERRORCODE = -1
@@ -18,18 +18,18 @@ USAGE = "\nUsage : pyhton main.py \"path to configuration file\""
 # Return value : integer (ERRORCODE or SUCCESSCODE)
 # Description : Manage the potential error with user input
 def errorHandling(av):
-    if (len(av) != 2):
-        print("Wrong number of argument." + USAGE)
-    if (av[1] != None):
+
         try:
-            file = open(av[1], "r")
-            with open(av[1], "r") as f:
-                data = json.load(f)
-            #checkJSONFileValidity(data)
-            file.close()
-            return SUCCESSCODE
+            if (len(av) != 2):
+                raise IndexError("Too few arguments")
+            if (av[1] != None):
+                file = open(av[1], "r")
+                with open(av[1], "r") as f:
+                    data = json.load(f)
+                #checkJSONFileValidity(data)
+                file.close()
         except IOError:
-            print("File doesn't exist." + USAGE)
+            raise IOError("File doesn't exist.")
 
 
 # Prototype : checkJSONFileValidity(data)
@@ -63,10 +63,14 @@ def main(av):
     actualElevator = None
     data = None
 
-    if (errorHandling(av) != SUCCESSCODE):
-        return (ERRORCODE)
-    with open(av[1], "r") as f:
-        data = json.load(f)
-    actualElevator = elevator(data)
+    try:
+        errorHandling(av)
+        with open(av[1], "r") as f:
+            data = json.load(f)
+        actualElevator = elevator(data)
+    except Exception as e:
+        print(type(e).__name__,":", e)
+        return(84)
+
 
 main(sys.argv)
