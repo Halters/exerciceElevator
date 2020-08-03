@@ -73,7 +73,7 @@ class Elevator():
     def check_json_value(self, data_array):
         keyWords = ["maxFloor", "minFloor", "startFloor"]
     
-        for iterator in range (len(keyWords)):
+        for iterator in range(len(keyWords)):
             try :
                 retValue = data_array[keyWords[iterator]]
             except KeyError:

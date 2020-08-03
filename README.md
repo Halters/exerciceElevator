@@ -12,7 +12,13 @@
 - ### **Configuration**
     Il est possible de modifier différentes variables dans le fichier de configuration <br/>
     Ces variables sont :<br/>
-        - La position initial de l'ascenseur ("startFloor")<br/>
-        - La hauteur maximal ou l'ascenceur peux se rendre("maxFloor")<br/>
-        - La profondeur maximal ou l'ascenceur peut se rendre("minFloor")<br/>
-    Il serai facile de rajouter d'autres fonctionnalité tel que le poids maximal, la gestion des portes etc <br/>
+    - La position initiale de l'ascenseur ("start Floor")<br/>
+    - La hauteur maximale ou l'ascenseur peut se rendre("max Floor")<br/>
+    - La profondeur maximale ou l'ascenseur peut se rendre("min Floor")<br/>
+    Il serait facile de rajouter d'autres fonctionnalités telles que le poids maximal, la gestion des portes etc. <br/>
+
+
+- ### **Exemple**
+
+    - up 5 (l'ascenseur montera alors de 5 étages si il le peut)
+    - down 8 (l'ascenseur descendera alors de 8 étages si il le peut)
