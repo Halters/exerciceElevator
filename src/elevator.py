@@ -33,3 +33,10 @@ class Elevator():
             raise ValueError("Minimum floor can't be higher or egal to maximum floor")
         if dataArray['startFloor'] > dataArray['maxFloor'] or dataArray['startFloor'] < dataArray['minFloor']:
             raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
+
+    def start(self):
+        for line in sys.stdin:
+            line = line.rstrip()
+            if (line.lower() == "end"):
+                print (line)
+                return(0)
