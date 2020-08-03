@@ -1,4 +1,3 @@
-#coding = utf-8
 # Process Digital Tools
 # Author : Hicham TNACHERI OUAZZANI (hicham.tnacheri@epitech.eu)
 # Date : 08/02/2020 at 00:45AM
@@ -14,65 +13,60 @@ class Elevator():
     __maximum_floor = 0
     __minimum_floor = 0
 
-    # Prototype = __init__(self, dataArray)
-    # Argument = self (mandatory argument) & dataArray(JSON packet)
-    # Return Value =
-    # Description = Elevator's constructor
+    # Prototype = __init__(self, data_array)
+    # Argument = self (mandatory argument) & data_array(JSON packet)
+    # Return Value = None
+    # Description = Elevator's object constructor
     def __init__(self, data_array):
         print ('Initialization of Elevator software ..')
-        try:
-            self.check_json_value(data_array)
-            self.set_floor_postion(data_array['startFloor'])
-            self.set_max_floor(data_array['maxFloor'])
-            self.set_min_floor(data_array['minFloor'])
-            return(0)
-        except Exception as e:
-            raise(e)
-            return(84)
+        self.check_json_value(data_array)
+        self.set_floor_postion(data_array['startFloor'])
+        self.set_max_floor(data_array['maxFloor'])
+        self.set_min_floor(data_array['minFloor'])
     
     # Prototype = set_floor_postion(self, initial_pos)
-    # Argument = self(mandatory argument) & initial_pos (interger)
+    # Argument = self(mandatory argument) & initial_pos (integer)
     # Return Value = None
-    # Description = setter for __floor_position
+    # Description = setter for __floor_position attribute
     def set_floor_postion (self, initial_pos):
         self.__floor_position = initial_pos
 
     # Prototype = set_max_floor(self, max_value)
-    # Argument = self(mandatory argument) & max_value (interger)
+    # Argument = self(mandatory argument) & max_value (integer)
     # Return Value = None
-    # Description = setter for __maximum_floor
+    # Description = setter for __maximum_floor attribute
     def set_max_floor(self, max_value):
         self.__maximum_floor = max_value
 
     # Prototype = set_min_floor(self, min_value)
-    # Argument = self(mandatory argument) & min_value (interger)
+    # Argument = self(mandatory argument) & min_value (integer)
     # Return Value = None
-    # Description = setter for __minimum_floor
+    # Description = setter for __minimum_floor attribute
     def set_min_floor(self, min_value):
         self.__minimum_floor = min_value
 
     # Prototype = get_floor_position(self)
     # Argument = self(mandatory argument)
     # Return Value = None
-    # Description = getter for __floor_position
+    # Description = getter for __floor_position attribute
     def get_floor_position(self):
         return self.__floor_position
     
     # Prototype = get_max_floor(self)
     # Argument = self(mandatory argument)
     # Return Value = None
-    # Description = getter for __maximum_floor
+    # Description = getter for __maximum_floor attribute
     def get_max_floor(self):
         return self.__maximum_floor
 
     # Prototype = get_min_floor(self)
     # Argument = self(mandatory argument)
     # Return Value = None
-    # Description = getter for __minimum_floor
+    # Description = getter for __minimum_floor attribute
     def get_min_floor(self):
         return self.__minimum_floor
     
-    # Prototype = checkJSONValue(self, dataArray)
+    # Prototype = checkJSONValue(self, data_array)
     # Argument = self (mandatory argument) & dataArray(JSON packet)
     # Return Value = raising Exceptions
     # Description = Check the JSON packet value and their coherences.
@@ -90,8 +84,12 @@ class Elevator():
             raise ValueError("Minimum floor can't be higher or egal to maximum floor")
         if data_array['startFloor'] > data_array['maxFloor'] or data_array['startFloor'] < data_array['minFloor']:
             raise ValueError("Start Floor can't be smaller than minimum floor or bigger than maximum floor")
+        return
 
-
+    # Prototype = move_up(self, order_to_exec)
+    # Argument = self (mandatory argument) & order_to_exec(str list)
+    # Return Value = raising Exception
+    # Description = Manages the upward movement of the elevator
     def move_up(self, order_to_exec):
         actual_floor = self.get_floor_position()
         to_move = 1
@@ -104,7 +102,7 @@ class Elevator():
                     raise ValueError("Floor can only be an integer.")
         if ((actual_floor + to_move) > self.get_max_floor()):
             print("You can't go higher. Maximum floor already reach or you will be out of band.")
-            return 0
+            return
         else:
             for temp in range (actual_floor, actual_floor + to_move):
                 print ("Stage", actual_floor , "to Stage", actual_floor + 1)
@@ -112,7 +110,10 @@ class Elevator():
                 actual_floor += 1
                 time.sleep(2)
 
-
+    # Prototype = move_down(self, order_to_exec)
+    # Argument = self (mandatory argument) & order_to_exec (str list)
+    # Return Value = raising Exception
+    # Description = manages the downward movement of the elevator
     def move_down(self, order_to_exec):
         actual_floor = self.get_floor_position()
         to_move = 1
@@ -125,7 +126,7 @@ class Elevator():
                     raise ValueError("Floor can only be an integer.")
         if ((actual_floor - to_move) < self.get_min_floor()):
             print("You can't go higher. Minimum floor already reach or you will be out of band.")
-            return 0
+            return
         else:
             for temp in range (actual_floor, actual_floor + to_move):
                 print ("Stage", actual_floor , "to Stage", actual_floor - 1)
@@ -134,8 +135,12 @@ class Elevator():
                 time.sleep(2)
 
 
+    # Prototype = print_status(self)
+    # Argument = self (mandatory argument)
+    # Return Value = raising Exception
+    # Description = Print the actual status of our elevator.
     def print_status(self) :
-        print("Elevator is at floor", self.__floor_position)
+        print("Elevator is at floor", self.__floor_position, "(max=",self.get_max_floor(), "& min=",self.get_min_floor(),")")
 
 
     # Prototype = start(self)
@@ -144,7 +149,7 @@ class Elevator():
     # Description = Check the JSON packet value and their coherences.
     def start(self):
         print ("Enter a command :")
-        print ("Starting floor : ", self.get_floor_position())
+        print ("Starting floor : ", self.get_floor_position(), "(max=",self.get_max_floor(), "& min=",self.get_min_floor(),")")
         for line in sys.stdin:
             line = line.rstrip().split()
             print ("You are actually stage", self.get_floor_position())
@@ -157,10 +162,13 @@ class Elevator():
                 except Exception as e:
                     print(type(e).__name__,":", e)
                     pass
-            if (line[0].lower() == "down"):
+            elif (line[0].lower() == "down"):
                 try:
                     self.move_down(line)
                     self.print_status()
                 except Exception as e:
                     print(type(e).__name__,":", e)
                     pass
+            else :
+                print("Wrong command. Use up or down commands.")
+                pass

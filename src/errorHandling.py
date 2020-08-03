@@ -1,4 +1,3 @@
-#coding = utf-8
 # Process Digital Tools
 # Author : Hicham TNACHERI OUAZZANI (hicham.tnacheri@epitech.eu)
 # Date : 08/02/2020 at 00:45AM
